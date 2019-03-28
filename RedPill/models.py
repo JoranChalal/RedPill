@@ -17,3 +17,8 @@ class Location(models.Model):
 
     def __str__(self):
         return "Location('{}', '{}', '{}')".format(self.title, self.price, self.date)
+
+
+#loc = Location(title="test", price=850, date="date", description="test", charges_included=True, real_estate_type=0,
+#               rooms=3, furnished=True, square=45.5, ges=0, energy_rate=0)
+#loc.save()
