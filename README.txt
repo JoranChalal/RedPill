@@ -19,3 +19,13 @@
 
 # Create admin user
 > python3 manage.py createsuperuser
+
+# install redis
+> brew install redis
+
+# run redis server
+> brew services start redis
+> redis-server
+
+# Run redis at the root of the project
+> celery -A RedPill.celery worker -l DEBUG -E
