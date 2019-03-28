@@ -13,3 +13,6 @@
 
 # Create tables for models in database
 > python3 manage.py makemigrations projectName
+
+# Migrate database
+> python3 manage.py migrate
