@@ -2,13 +2,13 @@
 
 {% block content %}
     <div style="vertical-align: middle">
+        </br>
         <p class="text-center" style="font-size:2.5em;"><b>SEARCH</b></p>
-
+        </br>
         <form method='POST' action=''>
             {% csrf_token %}
             {% for field in location_search_form %}
             <div class="form-group">
-
                 <span class="col-sm-3"></span>
                 <span class="col-sm-5 text-right" style="display: inline-block;">{{ field.errors }}{{ field.label_tag }}</span>
                 <span class="col-sm-5">{{ field }}</span>

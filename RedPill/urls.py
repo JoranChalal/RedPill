@@ -20,5 +20,5 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.search, name='search'),
+    path('search/', views.search, name='search'),
 ]
