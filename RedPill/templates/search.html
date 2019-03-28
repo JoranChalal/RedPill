@@ -10,13 +10,16 @@
             {% for field in location_search_form %}
             <div class="form-group">
                 <span class="col-sm-3"></span>
-                <span class="col-sm-5 text-right" style="display: inline-block;">{{ field.errors }}{{ field.label_tag }}</span>
+                <span class="col-sm-5 text-right" style="display: inline-block;">
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+                </span>
                 <span class="col-sm-5">{{ field }}</span>
             </div>
             {% endfor %}
             </br>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-md col-sm-1">SEARCH</button>
+                <input class="btn btn-primary btn-md col-sm-1" type="submit" value="GO">
             </div>
         </form>
     </div>

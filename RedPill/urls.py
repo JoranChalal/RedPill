@@ -21,4 +21,5 @@ from django.contrib import admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', views.search, name='search'),
+    path('search_progress/', views.search_progress, name='search_progress'),
 ]
