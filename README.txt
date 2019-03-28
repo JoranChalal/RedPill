@@ -16,3 +16,6 @@
 
 # Migrate database
 > python3 manage.py migrate
+
+# Create admin user
+> python3 manage.py createsuperuser
