@@ -3,6 +3,7 @@ from django.db import models
 class Location(models.Model):
     """ Contains all data available concerning a location """
 
+    url = models.CharField(max_length=250, default="")
     city = models.CharField(max_length=200, default="")
     postal_code = models.CharField(max_length=5, default="00000")
     title = models.CharField(max_length=200, default="")

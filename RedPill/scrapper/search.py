@@ -21,16 +21,19 @@ class Search:
     def __init__(self, url_prefix, url_query):
         self.url_prefix = url_prefix
         self.url_query = url_query
+        self.soup = ""
 
     def request_html(self):
         with requests.Session() as s:
             s.headers = self.HEADERS
             s.headers.update({'Content-Type': 'application/x-www-form-urlencoded'})
             html = s.get(self.url_prefix + self.url_query).text
-            soup = BeautifulSoup(html, "lxml")
-            for item in soup.findAll("a", {"class": "clearfix trackable"}):
-                print(item['href'])
-            return soup
+            self.soup = BeautifulSoup(html, "lxml")
+            return self.soup
 
-# s = Search("10", "Clamart", "92140", "1", "1")
-# s.request_html()
+    @staticmethod
+    def get_locations_href(html):
+        a = []
+        for item in html.findAll("a", {"class": "clearfix trackable"}):
+            a.append(item['href'])
+        return a

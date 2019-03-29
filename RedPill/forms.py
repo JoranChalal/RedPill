@@ -8,7 +8,7 @@ class LocationSearchForm(forms.Form):
     owner_is_pro = forms.BooleanField(label="Is from professional", required=False)
     min_price = forms.IntegerField(label="Minimum price", initial=0, min_value=0)
     max_price = forms.IntegerField(label="Maximum price", initial=1000, min_value=0)
-    min_rooms = forms.IntegerField(label="Minimum rooms", initial=0, min_value=0)
+    min_rooms = forms.IntegerField(label="Minimum rooms", initial=1, min_value=1)
     max_rooms = forms.IntegerField(label="Maximum rooms", initial=3, min_value=0)
     min_square = forms.FloatField(label="Minimum square", initial=0, min_value=0)
     max_square = forms.FloatField(label="Maximum square", initial=100, min_value=0)

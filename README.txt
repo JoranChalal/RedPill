@@ -12,7 +12,7 @@
 > python3 manage.py runserver
 
 # Create tables for models in database
-> python3 manage.py makemigrations projectName
+> python3 manage.py makemigrations RedPill
 
 # Migrate database
 > python3 manage.py migrate
@@ -29,3 +29,6 @@
 
 # Run redis at the root of the project
 > celery -A RedPill.celery worker -l DEBUG -E
+
+# Stop all process on port
+> sudo lsof -t -i tcp:8000 | xargs kill -9
