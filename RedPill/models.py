@@ -18,6 +18,8 @@ class Location(models.Model):
     square = models.FloatField(default=0)
     ges = models.IntegerField(default=0)
     energy_rate = models.IntegerField(default=0)
+    is_relevant = models.BooleanField(default=True)
+    objects = models.Manager()
 
     def __str__(self):
         return "Location('{}', '{}', '{}')".format(self.title, self.price, self.date)
