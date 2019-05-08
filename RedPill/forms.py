@@ -12,3 +12,8 @@ class LocationSearchForm(forms.Form):
     max_rooms = forms.IntegerField(label="Maximum rooms", initial=3, min_value=0)
     min_square = forms.FloatField(label="Minimum square", initial=0, min_value=0)
     max_square = forms.FloatField(label="Maximum square", initial=100, min_value=0)
+
+class IsRelevantForm(forms.Form):
+    url = forms.CharField(widget = forms.HiddenInput(), label="", max_length=100)
+    real_price = forms.FloatField(label="Real price", required=True)
+    is_relevant = forms.BooleanField(label="Is relevant", required=False)

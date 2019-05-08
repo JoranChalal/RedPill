@@ -3,8 +3,6 @@ from ..celery import app
 from .search import Search
 from ..models import Location
 import jsonpickle
-import time
-import random
 
 class LbcLocationScrapperBot:
 
@@ -74,6 +72,10 @@ class LbcLocationScrapperBot:
                 print("Filling " + self.url_prefix + href)
                 html = search.request_html(self.url_prefix, href)
                 location = Search.fill_location_data(html, location)
+                location.city = self.form.cleaned_data["city"]
+                location.postal_code = self.form.cleaned_data["postal_code"]
+                location.real_estate_type = self.form.cleaned_data["real_estate_type"]
+                location.furnished = self.form.cleaned_data["furnished"]
                 location.save()
         search.quit()
 

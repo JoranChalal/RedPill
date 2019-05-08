@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 class Location(models.Model):
     """ Contains all data available concerning a location """
@@ -18,13 +19,14 @@ class Location(models.Model):
     square = models.FloatField(default=0)
     ges = models.IntegerField(default=0)
     energy_rate = models.IntegerField(default=0)
+    images = models.CharField(max_length=1000, default="")
+    has_been_seen = models.BooleanField(default=False)
     is_relevant = models.BooleanField(default=True)
     objects = models.Manager()
 
     def __str__(self):
         return "Location('{}', '{}', '{}')".format(self.title, self.price, self.date)
 
-
-#loc = Location(title="test", price=850, date="date", description="test", charges_included=True, real_estate_type=0,
-#               rooms=3, furnished=True, square=45.5, ges=0, energy_rate=0)
-#loc.save()
+class SearchLocation(models.Model):
+    search_date = models.DateTimeField(default=datetime.now, blank=True)
+    

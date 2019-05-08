@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    {% if locations|length > 0 %}
+
+        <div style="vertical-align: middle">
+            </br>
+            <p class="text-center" style="font-size:2.5em;"><b>{{ city }}</b></p>
+            </br>
+        </div>
+
+        <div class="container col-md-6" style="float:right; padding-right:5em;">
+            <canvas id="chartLocations"></canvas>
+        </div>
+
+        <div class="container col-md-6" style="float:left; padding-left:5em;">
+            <br>
+            <b>Mean price : </b> {{ mean_price_vs_square }} &euro;/m<sup>2</sup>
+        </div>
+
+        <script>
+            var ctx = document.getElementById('chartLocations').getContext('2d');
+            var locations_list = {{ locations|safe }}
+
+            slopeAndIntercept = function(points) {
+              var rV = {},
+                N = points.length,
+                sumX = 0,
+                sumY = 0,
+                sumXx = 0,
+                sumYy = 0,
+                sumXy = 0;
+
+              // can't fit with 0 or 1 point
+              if (N < 2) {
+                return rV;
+              }
+
+              for (var i = 0; i < N; i++) {
+                var x = points[i].x,
+                  y = points[i].y;
+                sumX += x;
+                sumY += y;
+                sumXx += (x * x);
+                sumYy += (y * y);
+                sumXy += (x * y);
+              }
+
+              // calc slope and intercept
+              rV['slope'] = ((N * sumXy) - (sumX * sumY)) / (N * sumXx - (sumX * sumX));
+              rV['intercept'] = (sumY - rV['slope'] * sumX) / N;
+              rV['rSquared'] = Math.abs((rV['slope'] * (sumXy - (sumX * sumY) / N)) / (sumYy - ((sumY * sumY) / N)));
+
+              return rV;
+            }
+
+            var max_x = 0;
+            var min_x = 1000;
+
+            for (var i = 0; i < locations_list.length; i++) {
+                if(max_x < locations_list[i].x) {
+                    max_x = locations_list[i].x
+                }
+                if(min_x > locations_list[i].x) {
+                    min_x = locations_list[i].x
+                }
+            }
+
+            var rV = slopeAndIntercept(locations_list);
+            var data_regression = [{x: min_x - 10, y: rV['intercept'] + rV['slope'] * (min_x - 10)},
+                                   {x: max_x + 10, y: rV['intercept'] + rV['slope'] * (max_x + 10)}];
+
+
+            console.log(data_regression)
+            var scatterChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        backgroundColor: 'rgb(0, 0, 0, 0)',
+                        borderColor: 'rgb(51, 102, 153)',
+                        label: 'Price vs Square',
+                        data: locations_list,
+                        pointRadius: 4,
+                        pointHoverRadius: 8,
+                        borderWidth: 3,
+                        showLine: false,
+                    },
+                    {
+                        backgroundColor: 'rgb(0, 0, 0, 0)',
+                        borderColor: 'rgb(240, 93, 94)',
+                        label: 'Regression',
+                        data: data_regression,
+                        borderDash: [10,15]
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'linear',
+                            position: 'bottom'
+                        }]
+                    }
+                }
+            });
+        </script>
+
+    {% endif %}
+{% endblock %}
